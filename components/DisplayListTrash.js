@@ -3,14 +3,12 @@ import React, { useState, useEffect } from "react";
 import {
   StyleSheet,
   View,
-  Text,
-  FlatList,
   Dimensions,
   TouchableWithoutFeedback,
 } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 
-//Third-Party Imports
+//ThirdParty Imports
 import { MaterialIcons } from "@expo/vector-icons";
 import Animated, {
   useAnimatedGestureHandler,
@@ -25,33 +23,35 @@ import {
   PanGestureHandler,
 } from "react-native-gesture-handler";
 
-//Compoenents Import
+//Components Import
 import AppText from "./AppText";
+
+//actions
 import { deleteFromTrash, restoreFromTrash } from "../features/actions";
 
+//const
 const { width: SCREEN_WIDTH } = Dimensions.get("window");
-
 const LIST_ITEM_HEIGHT = 80;
 
 function DisplayListTrash({ item }) {
-  //redux
+  //dispatcher
   const dispatch = useDispatch();
+
+  //selectors
   const user = useSelector((state) => state.user.currentUser);
 
   //datas
   const userId = user.userId;
-
-  //state
-  const [callRestore, setCallRestore] = useState(false);
-  const [callDelete, setCallDelete] = useState(false);
-
   const TRANSLATE_X_THRESHOLD = SCREEN_WIDTH * 0.3;
   const translateX = useSharedValue(0);
   const itemHeight = useSharedValue(80);
   const marginVertical = useSharedValue(5);
   const opacity = useSharedValue(1);
-
   const isCompleted = item.completed;
+
+  //state
+  const [callRestore, setCallRestore] = useState(false);
+  const [callDelete, setCallDelete] = useState(false);
 
   const pan = useAnimatedGestureHandler({
     onStart: (event, context) => {
@@ -203,6 +203,7 @@ function DisplayListTrash({ item }) {
   );
 }
 
+//StyleSheet
 const styles = StyleSheet.create({
   CheckBoxDesign: {
     height: 50,

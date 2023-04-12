@@ -12,8 +12,6 @@ function Iconic({
   onPress,
   height,
   placeholder,
-  isFocused,
-
   secureTextEntry,
   onChangeText,
   value,
@@ -64,6 +62,7 @@ function Iconic({
   );
 }
 
+//StyleSheet
 const styles = StyleSheet.create({
   container: {
     flexDirection: "row",

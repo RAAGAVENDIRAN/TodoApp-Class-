@@ -4,7 +4,6 @@ import { FlatList } from "react-native";
 
 //Components Imports
 import DisplayListPending from "./DisplayListPending";
-import { useSelector } from "react-redux";
 
 export default function ListingPending({ navigation, pendingTodoArr }) {
   const [scrollLock, setScrollLock] = useState(true);

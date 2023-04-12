@@ -1,13 +1,13 @@
+//Default Imports
 import React from "react";
 import { StyleSheet, Text, View, Platform, StatusBar } from "react-native";
-import Iconic from "./components/Iconic";
-
-import Navigator from "./screens/Navigator";
-import Profile from "./screens/Profile";
 import { Provider } from "react-redux";
 import store from "./features/store";
 
-export default function App() {
+//Component Imports
+import Navigator from "./screens/Navigator";
+
+function App() {
   return (
     <Provider store={store}>
       <View style={styles.container}>
@@ -17,6 +17,7 @@ export default function App() {
   );
 }
 
+//StyleSheet
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -24,3 +25,5 @@ const styles = StyleSheet.create({
     paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
   },
 });
+
+export default App;

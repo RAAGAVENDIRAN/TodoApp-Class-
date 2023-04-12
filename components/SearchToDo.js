@@ -1,6 +1,5 @@
-import React, { useRef, useEffect } from "react";
+import React from "react";
 import { View, TextInput, StyleSheet } from "react-native";
-import { FontAwesome } from "@expo/vector-icons";
 
 import {
   useFonts,
@@ -9,12 +8,6 @@ import {
 } from "@expo-google-fonts/poppins";
 
 function SearchToDo({ onChangeText, placeholder, value, style }) {
-  // const inputRef = useRef(); //auto focus using Ref
-
-  // useEffect(() => {
-  //   if (fontsLoaded) inputRef.current.focus();
-  // }, []);
-
   let [fontsLoaded] = useFonts({
     Poppins_400Regular,
     Poppins_300Light,
@@ -36,6 +29,7 @@ function SearchToDo({ onChangeText, placeholder, value, style }) {
   );
 }
 
+//Stylesheet
 const styles = StyleSheet.create({
   container: {
     height: 80,

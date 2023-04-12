@@ -27,11 +27,8 @@ export default function (state = initialState, action) {
         pendingTodo: { ...action.payload.pendingTodo },
         trashTodo: { ...action.payload.trashTodo },
         isFetched: true,
-        searchObj: {
-          completedTodo: { ...action.payload.completedTodo },
-          pendingTodo: { ...action.payload.pendingTodo },
-        },
       };
+
     case ADD_TODO: {
       state.pendingTodo[action.payload.newTodo.id] = action.payload.newTodo;
 
@@ -113,46 +110,7 @@ export default function (state = initialState, action) {
       };
     }
 
-    case SEARCH_TODO: {
-      //need to change
-      if (action.payload.bool === true) {
-        return {
-          ...state,
-          completedTodo: Object.values(action.payload.obj).filter((item) => {
-            let itemData = item.title
-              ? item.title.toUpperCase()
-              : "".toUpperCase();
-            let textData = action.payload.newtext.toUpperCase();
-            return itemData.indexOf(textData) > -1;
-          }),
-        };
-      } else if (action.payload.bool === false) {
-        return {
-          ...state,
-          pendingTodo: Object.values(action.payload.obj).filter((item) => {
-            let itemData = item.title
-              ? item.title.toUpperCase()
-              : "".toUpperCase();
-            let textData = action.payload.newtext.toUpperCase();
-            return itemData.indexOf(textData) > -1;
-          }),
-        };
-      } else {
-        return {
-          ...state,
-          trashTodo: Object.values(action.payload.obj).filter((item) => {
-            let itemData = item.title
-              ? item.title.toUpperCase()
-              : "".toUpperCase();
-            let textData = action.payload.newtext.toUpperCase();
-            return itemData.indexOf(textData) > -1;
-          }),
-        };
-      }
-    }
-
     case REMOVE_DETAILS: {
-      console.log("removed");
       return {
         ...state,
         completedTodo: {},

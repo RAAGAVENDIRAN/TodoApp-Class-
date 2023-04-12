@@ -4,15 +4,15 @@ import { StyleSheet, View, FlatList, Alert } from "react-native";
 import { connect } from "react-redux";
 
 //third part IMports
-import { useFonts, Poppins_400Regular } from "@expo-google-fonts/poppins";
 import { MaterialIcons } from "@expo/vector-icons";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 
 //Components Imports
 import AppText from "../components/AppText";
 import DisplayListTrash from "../components/DisplayListTrash";
 import SearchToDo from "../components/SearchToDo";
-import { clearTrash, searchTodo } from "../features/actions";
+
+//actions
+import { clearTrash } from "../features/actions";
 
 class Trash extends Component {
   constructor(props) {
@@ -37,8 +37,8 @@ class Trash extends Component {
     }
   }
 
+  //Handlers
   Searching = (newtext) => {
-    console.log("here");
     let tempTrash = [];
     let objSearch = Object.values(this.state.trashTodo).filter((item) => {
       let itemData = item.title ? item.title.toUpperCase() : "".toUpperCase();
@@ -123,6 +123,7 @@ class Trash extends Component {
   }
 }
 
+//mapState
 const mapStateToProps = (state) => {
   return {
     trashTodo: state.todo.trashTodo,
@@ -136,6 +137,7 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
+//Stylesheet
 const styles = StyleSheet.create({
   Headercontainer: {
     paddingTop: 20,

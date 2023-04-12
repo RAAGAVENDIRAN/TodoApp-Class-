@@ -1,3 +1,4 @@
+//Default Imports
 import React, { useState } from "react";
 import {
   View,
@@ -7,21 +8,29 @@ import {
   useWindowDimensions,
   Text,
 } from "react-native";
-import { LinearGradient } from "expo-linear-gradient";
+import { useSelector, useDispatch } from "react-redux";
+
+//Third Party Imports
+
 import { useFonts, Poppins_400Regular } from "@expo-google-fonts/poppins";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+
+//Component Imports
 import AppText from "../components/AppText";
 import AppButton from "../components/AppButton";
 import Iconic from "../components/Iconic";
 
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import { useStore, useSelector, useDispatch } from "react-redux";
+//actions
 import { addUser } from "../features/actions";
 
+//constants
 const data = [""];
 
 function SignUp({ navigation }) {
-  //redux
+  //dispatcher
   const dispatch = useDispatch();
+
+  //Selectors
   const users = useSelector((state) => state.user.users);
 
   //state
@@ -31,9 +40,11 @@ function SignUp({ navigation }) {
   const [seePassword, setSeePassword] = useState(true);
   const [checkValidEmail, setCheckValidEmail] = useState(false);
 
-  //default
+  //constants
   const { width, height } = useWindowDimensions();
   const id = Math.random() * Math.random();
+
+  //Handlers
 
   //storing Data in ASync
   const storeData = async (value) => {
@@ -94,9 +105,6 @@ function SignUp({ navigation }) {
       return "Password must be 8 - 16 Characters Long";
     }
 
-    if (!checkValidEmail) {
-      return "Email is not Valid";
-    }
     return null;
   };
 
@@ -157,14 +165,7 @@ function SignUp({ navigation }) {
     <ScrollView style={[styles.container]}>
       <View style={{ height: height }}>
         <View style={{ flex: 0.9 }}>
-          <View style={{ zIndex: 1 }}>
-            <View style={[styles.item, { zIndex: data.length }]}>
-              <LinearGradient
-                style={StyleSheet.absoluteFill}
-                colors={["#B0DAFF", "#B0DAFF", "#B0DAFF"]}
-              />
-            </View>
-          </View>
+          <View style={styles.topStyle}></View>
           <View style={styles.upperText}>
             <AppText
               style={{ fontFamily: "Poppins_600SemiBold", fontSize: 40 }}
@@ -241,6 +242,8 @@ function SignUp({ navigation }) {
     </ScrollView>
   );
 }
+
+//StyleSheet
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -290,6 +293,11 @@ const styles = StyleSheet.create({
     justifyContent: "flex-end",
     alignItems: "flex-end",
     marginHorizontal: 30,
+  },
+  topStyle: {
+    backgroundColor: "#B0DAFF",
+    height: 150,
+    borderBottomLeftRadius: 200,
   },
   button: {
     borderRadius: 10,

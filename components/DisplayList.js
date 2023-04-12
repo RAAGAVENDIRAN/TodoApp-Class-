@@ -24,33 +24,35 @@ import {
   PanGestureHandler,
 } from "react-native-gesture-handler";
 
-//Components Imorts
+//Components Imports
 import AppText from "./AppText";
+
+//actions
 import { markTodo, moveToTrash } from "../features/actions";
 
+//constants
 const { width: SCREEN_WIDTH } = Dimensions.get("window");
-
 const LIST_ITEM_HEIGHT = 90;
 
 function DisplayList({ item, navigation, scrollLock }) {
-  //redux
-  // console.log("DIplay ", item);
+  //dispatcher
   const dispatch = useDispatch();
+
+  //selectors
   const user = useSelector((state) => state.user.currentUser);
 
-  //datas
+  //const
   const userId = user.userId;
-
-  //state
-  const [isChecked, setChecked] = useState(item.completed ? 1 : 0);
-  const [callDelete, setCallDelete] = useState(false);
-
   const checks = ["unchecked", "checked"];
   const TRANSLATE_X_THRESHOLD = SCREEN_WIDTH * 0.3;
   const translateX = useSharedValue(0);
   const itemHeight = useSharedValue(100);
   const marginVertical = useSharedValue(5);
   const opacity = useSharedValue(1);
+
+  //state
+  const [isChecked, setChecked] = useState(item.completed ? 1 : 0);
+  const [callDelete, setCallDelete] = useState(false);
 
   const pan = useAnimatedGestureHandler({
     onStart: (event, context) => {
@@ -106,7 +108,6 @@ function DisplayList({ item, navigation, scrollLock }) {
     };
   });
 
-  //
   useEffect(() => {
     if (callDelete) {
       dispatch(moveToTrash({ todo: item }));
@@ -191,6 +192,7 @@ function DisplayList({ item, navigation, scrollLock }) {
   );
 }
 
+//Stylesheet
 const styles = StyleSheet.create({
   CheckBoxDesign: {
     height: 50,

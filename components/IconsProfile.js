@@ -1,5 +1,8 @@
+//Default Imports
 import React from "react";
 import { View, StyleSheet } from "react-native";
+
+//Third Party Imports
 import * as Icons from "@expo/vector-icons";
 
 export default function IconsProfile({
@@ -18,6 +21,7 @@ export default function IconsProfile({
   );
 }
 
+//Stylesheet
 const styles = StyleSheet.create({
   circle: {
     width: 50,

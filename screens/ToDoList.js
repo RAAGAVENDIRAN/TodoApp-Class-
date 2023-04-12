@@ -1,75 +1,73 @@
 //default Imports
 import React, { useState, useEffect } from "react";
 import { StyleSheet, View, Image } from "react-native";
+import { useDispatch, useSelector } from "react-redux";
 
 //Third-Party Imports
 import { useFonts, Poppins_400Regular } from "@expo-google-fonts/poppins";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import { MaterialIcons } from "@expo/vector-icons";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
+import { TouchableWithoutFeedback } from "react-native";
 
 //components IMports
 import SearchToDo from "../components/SearchToDo";
 import BottomButton from "../components/BottomButton";
 import Listing from "../components/Listing";
 import ListingPending from "../components/ListingPending";
-import { useDispatch, useSelector } from "react-redux";
-import {
-  GET_TODO,
-  currentUser,
-  removeDetails,
-  searchTodo,
-  setTodo,
-} from "../features/actions";
-import { useIsFocused } from "@react-navigation/native";
-import { TouchableWithoutFeedback } from "react-native";
+
+//Component Imports
 import AppText from "../components/AppText";
 
-import store from "../features/store";
+//actions
+import { GET_TODO } from "../features/actions";
 
+//Tab Navigator
 const Tab = createMaterialTopTabNavigator();
+
+//var
 let findTab = 1;
 
 function ToDoList({ navigation }) {
-  //redux
+  //dispatcher
   const dispatch = useDispatch();
+
+  //selectors
   const user = useSelector((state) => state.user.currentUser);
-
-  const isFocused = useIsFocused();
-  let profile = user.profile;
-
-  //getting data from redux
   const { completedTodo, pendingTodo } = useSelector((state) => state.todo);
-
   const isFetched = useSelector((state) => state.todo.isFetched);
 
-  //state
+  //constants
+  const userId = user.userId;
+  const username = user.username;
+
+  //var
+  let profile = user.profile;
+  let completedTodoArr = [];
+  let pendingTodoArr = [];
+  let searchTodoArr = [];
+
+  //states
   const [search, setSearch] = useState("");
   const [searchTodo, setSearchTodo] = useState(completedTodo);
 
-  let completedTodoArr = [];
+  //Converting Objects to arrays
   Object.keys(completedTodo).filter((key) => {
     completedTodoArr.push(completedTodo[key.toString()]);
   });
-  let pendingTodoArr = [];
+
   Object.keys(pendingTodo).filter((key) => {
     pendingTodoArr.push(pendingTodo[key.toString()]);
   });
 
-  let searchTodoArr = [];
   Object.keys(searchTodo).filter((key) => {
     searchTodoArr.push(searchTodo[key.toString()]);
   });
 
-  //datas
-  const userId = user.userId;
-  const username = user.username;
-  // console.log(userId);
+  //Handlers
 
   //getdata from async storage
   useEffect(() => {
     if (!isFetched) {
-      console.log("Get Data Called");
       dispatch({
         type: GET_TODO,
         payload: {
@@ -79,7 +77,7 @@ function ToDoList({ navigation }) {
     }
   }, [user]);
 
-  //
+  //setting tab
   useEffect(() => {
     if (findTab == 1) {
       setSearchTodo(completedTodo);
@@ -192,7 +190,6 @@ function ToDoList({ navigation }) {
               findTab = 1;
             },
             blur: (e) => {
-              // setTab(0);
               if (search !== "") Searching("");
             },
           })}
@@ -252,6 +249,8 @@ function ToDoList({ navigation }) {
   );
 }
 // }
+
+//StyleSheet
 
 const styles = StyleSheet.create({
   container: {

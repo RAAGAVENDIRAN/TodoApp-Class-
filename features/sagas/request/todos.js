@@ -9,8 +9,7 @@ export async function setData(actionData) {
         trashTodo: actionData.trashTodo,
       },
     });
-    // console.log("Calling Async");
-    // console.log(jsonValue);
+
     await AsyncStorage.setItem(`@todo ${actionData.userId}`, jsonValue);
   } catch (e) {
     console.log("Error");

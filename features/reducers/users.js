@@ -30,16 +30,8 @@ export default function (state = initialState, action) {
     case REMOVE_CURRENTUSER:
       return {
         ...state,
-        currentUser: [],
+        currentUser: {},
       };
-
-    // case REMOVE_USER:
-    //   return {
-    //     ...state,
-    //     users: users.filter((item) => {
-    //       if (item.id !== action.payload.id) return item;
-    //     }),
-    //   };
 
     default:
       return state;

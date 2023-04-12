@@ -1,7 +1,6 @@
 //default Imports
 import React, { useState, useEffect } from "react";
 import {
-  Text,
   StyleSheet,
   View,
   TextInput,
@@ -10,6 +9,7 @@ import {
   ScrollView,
   Dimensions,
 } from "react-native";
+import { useDispatch, useSelector } from "react-redux";
 
 //Third-Party Imports
 import DateTimePicker from "@react-native-community/datetimepicker";
@@ -21,20 +21,19 @@ import {
 } from "@expo-google-fonts/poppins";
 import { AntDesign } from "@expo/vector-icons";
 
-//redux Imports
-import { useDispatch, useSelector } from "react-redux";
-
 //Components Imports
 import { addTodo } from "../features/actions";
 import colors from "../config/colors";
 import AppText from "./AppText";
 
+//const
 const { width, height } = Dimensions.get("screen");
 
 export default function InputModel({ navigation, route }) {
-  //redux
+  //dispatcher
   const dispatch = useDispatch();
 
+  //Selectors
   const completedTodo = useSelector((state) => state.todo.completedTodo);
   const pendingTodo = useSelector((state) => state.todo.pendingTodo);
   const user = useSelector((state) => state.user.currentUser);
@@ -42,20 +41,18 @@ export default function InputModel({ navigation, route }) {
   //datas
   const userId = user.userId;
 
-  //
+  //var
   let completedTodoArr = [];
   let pendingTodoArr = [];
 
+  //converting to arr
   Object.keys(completedTodo).filter((key) => {
     completedTodoArr.push(completedTodo[key.toString()]);
   });
-
   Object.keys(pendingTodo).filter((key) => {
     pendingTodoArr.push(pendingTodo[key.toString()]);
   });
 
-  // console.log(pendingTodoArr);
-  // console.log("sdsd", completedTodoArr);
   //states
   const [todoInput, setTodoInput] = useState("");
   const [date, setDate] = useState(new Date());
@@ -64,6 +61,7 @@ export default function InputModel({ navigation, route }) {
   const [fDate, setfDate] = useState("");
   const [markDate, setMarkDate] = useState({});
 
+  //handlers
   useEffect(() => {
     calendarDate();
   }, [markDate]);
@@ -122,7 +120,6 @@ export default function InputModel({ navigation, route }) {
   };
 
   //fonts
-
   let [fontsLoaded] = useFonts({
     Poppins_400Regular,
     Poppins_300Light,

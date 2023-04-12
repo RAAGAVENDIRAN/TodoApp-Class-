@@ -4,8 +4,6 @@ import {
   View,
   StyleSheet,
   Dimensions,
-  TouchableOpacity,
-  Button,
   Alert,
   Image,
   ToastAndroid,
@@ -13,11 +11,11 @@ import {
 } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
 
-//thirdParty Import
+//ThirdParty Imports
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { TextInput, useTheme } from "react-native-paper";
 import { Formik } from "formik";
 import * as Yup from "yup";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useFonts, Poppins_600SemiBold } from "@expo-google-fonts/poppins";
 import * as ImagePicker from "expo-image-picker";
 
@@ -28,9 +26,11 @@ import IconsProfile from "../components/IconsProfile";
 import IconsGreater from "../components/IconGreater";
 import { currentUser, setUser } from "../features/actions";
 
+//
 const { width, height } = Dimensions.get("screen");
-
 const PhoneRegExp = /^[0-9]{10}$/;
+
+//Handlers
 
 const EditProfileSchema = Yup.object().shape({
   username: Yup.string()
@@ -47,17 +47,29 @@ const EditProfileSchema = Yup.object().shape({
 });
 
 function EditProfile({ navigation }) {
-  // redux
+  //dispatcher
   const dispatch = useDispatch();
+
+  //Selectors
   const currentuser = useSelector((state) => state.user.currentUser);
-
   const user = useSelector((state) => state.user.users);
-  const userId = user.userId;
 
-  //state
+  //Image state
   const [image, setImage] = useState(currentuser.profile);
 
-  //image picker
+  //Var
+  const userId = user.userId;
+  let date = currentuser.joinedDate;
+  let joined = date.toString().slice(0, 10);
+
+  //fonts Hook
+  let [fontsLoaded, error] = useFonts({
+    Poppins_600SemiBold,
+  });
+
+  //Handlers
+
+  //Image picker
   const pickImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.All,
@@ -71,19 +83,8 @@ function EditProfile({ navigation }) {
     }
   };
 
-  // //
-
-  let date = currentuser.joinedDate;
-  let joined = date.toString().slice(0, 10);
-
-  //fonts
-  let [fontsLoaded, error] = useFonts({
-    Poppins_600SemiBold,
-  });
   //theme
-
   const theme = useTheme();
-
   const themes = {
     fonts: {
       bodyLarge: {
@@ -147,7 +148,6 @@ function EditProfile({ navigation }) {
               {image ? (
                 <Image source={{ uri: image }} style={styles.circle} />
               ) : (
-                // <View style={styles.circle} />
                 <Image
                   source={require("../assets/profile.png")}
                   style={styles.circle}
@@ -179,7 +179,7 @@ function EditProfile({ navigation }) {
                     currentUser({
                       currentUser: {
                         ...currentuser,
-                        //   userId: currentuser.id,
+
                         username: values.username,
                         email: values.email,
                         phoneNumber: values.phoneNumber,
@@ -190,7 +190,6 @@ function EditProfile({ navigation }) {
                   );
                   const editarr = user.filter((item) => {
                     if (currentuser.userId === item.userId) {
-                      // item.userId = currentuser.id;
                       item.username = values.username;
                       item.email = values.email;
                       item.phoneNumber = values.phoneNumber;
@@ -307,6 +306,7 @@ function EditProfile({ navigation }) {
   }
 }
 
+//Stylesheet
 const styles = StyleSheet.create({
   container: {
     flex: 1,

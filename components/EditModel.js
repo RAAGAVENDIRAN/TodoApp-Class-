@@ -22,18 +22,24 @@ import { AntDesign } from "@expo/vector-icons";
 //Components Import
 import colors from "../config/colors";
 import AppText from "./AppText";
+
+//actions
 import { todoEdit } from "../features/actions";
 
+//const
 const { width, height } = Dimensions.get("screen");
 
 export default function EditModel({ navigation, route }) {
-  //redux
+  //disptcher
   const dispatch = useDispatch();
+
+  //selectors
   const user = useSelector((state) => state.user.currentUser);
 
   const { id, completed, curDate, finishDate, title } = route.params;
   const finish = new Date(finishDate.slice(0, 16));
 
+  //states
   const [editTodo, setEditTodo] = useState(title);
   const [betweenDates, setBetweenDates] = useState({});
   const [endDate, setEndDate] = useState(
@@ -161,6 +167,7 @@ export default function EditModel({ navigation, route }) {
   );
 }
 
+//StyleSheet
 const styles = StyleSheet.create({
   boxContainer: {
     height: height * 0.4,

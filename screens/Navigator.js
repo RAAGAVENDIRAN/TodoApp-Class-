@@ -1,10 +1,14 @@
-import React, { useRef, useState, useEffect } from "react";
+//Default IMports
+import React, { useRef, useEffect } from "react";
 import { AppState } from "react-native";
-import { NavigationContainer } from "@react-navigation/native";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import store from "../features/store";
 
+//ThirdParty Imorts
+import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+
+//Components Import
 import ToDoList from "./ToDoList";
 import InputModel from "../components/InputModel";
 import EditModel from "../components/EditModel";
@@ -13,23 +17,22 @@ import SignUp from "./SignUp";
 import Profile from "./Profile";
 import Trash from "./Trash";
 import EditProfile from "./EditProfile";
+
+//action
 import { APP_STATE, APP_CLOSING } from "../features/actions";
 
+//Stack Navigator
 const Stack = createNativeStackNavigator();
 
+//variables
 let fromLogIn = true;
 let fromSignIn = false;
-export default function NavigatorPage() {
-  //
-  const dispatch = useDispatch();
-  // const user = useSelector((state) => state.user.currentUser);
-  // const completedTodo = useSelector((state) => state.todo.completedTodo);
-  // const pendingTodo = useSelector((state) => state.todo.pendingTodo);
-  // const trashTodo = useSelector((state) => state.todo.trashTodo);
-  // console.log(completedTodo);
-  // console.log(pendingTodo);
-  // console.log(trashTodo);
 
+export default function NavigatorPage() {
+  //dispatcher
+  const dispatch = useDispatch();
+
+  //appState
   const appState = useRef(AppState.currentState);
 
   useEffect(() => {
@@ -49,9 +52,6 @@ export default function NavigatorPage() {
         });
       }
     });
-    // return () => {
-    //   subscription.remove();
-    // };
   }, []);
 
   return (
@@ -65,18 +65,13 @@ export default function NavigatorPage() {
           }}
           listeners={() => ({
             blur: () => {
-              // console.log("blur");
               fromLogIn = false;
             },
 
             focus: () => {
-              console.log("Focus");
-              // console.log(fromLogIn);
               if (fromSignIn) {
                 fromSignIn = false;
               } else if (!fromLogIn) {
-                console.log("call dispatch");
-
                 dispatch({
                   type: APP_CLOSING,
                   payload: {

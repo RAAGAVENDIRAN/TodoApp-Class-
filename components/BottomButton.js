@@ -1,4 +1,4 @@
-//Default IMports
+//Default Imports
 import React from "react";
 import { StyleSheet, TouchableOpacity, Text } from "react-native";
 
@@ -13,6 +13,7 @@ function BottomButton({ navigated }) {
   );
 }
 
+//Stylesheet
 const styles = StyleSheet.create({
   floatingText: {
     fontWeight: "bold",

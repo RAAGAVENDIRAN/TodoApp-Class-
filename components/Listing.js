@@ -6,8 +6,6 @@ import store from "../features/store";
 //Components Import
 import DisplayList from "./DisplayList";
 import { useSelector } from "react-redux";
-import { useEffect } from "react";
-import { useRef } from "react";
 
 export default function Listing({ navigation, completedTodoArr }) {
   const [scrollLock, setScrollLock] = useState(true);

@@ -1,5 +1,4 @@
 //default Imports
-
 import React, { Component } from "react";
 import {
   View,
@@ -9,25 +8,25 @@ import {
   Text,
   Dimensions,
 } from "react-native";
-
-//third-Party Imports
-import { LinearGradient } from "expo-linear-gradient";
-import AppText from "../components/AppText";
-import AppButton from "../components/AppButton";
-import Iconic from "../components/Iconic";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-
-//redux imports
 import { connect } from "react-redux";
 import { currentUser, getUsers } from "../features/actions";
 
+//third-Party Imports
+
+import AsyncStorage from "@react-native-async-storage/async-storage";
+
+//Component Imports
+import AppText from "../components/AppText";
+import AppButton from "../components/AppButton";
+import Iconic from "../components/Iconic";
+
+//constants
 const data = [""];
 const { width, height } = Dimensions.get("window");
 
 class Login extends Component {
   constructor(props) {
     super(props);
-    // console.log(props);
     this.state = {
       email: "",
       password: "",
@@ -40,19 +39,14 @@ class Login extends Component {
     this.props.getUsers();
   }
 
-  // componentDidUpdate(prevprops, prevState) {
-  //   console.log("Heer");
-  //   console.log(prevprops);
-  //   console.log("State");
-  //   console.log(this.props);
-  // }
+  //Handlers
+
+  //Clear Async Storage
 
   clearAll = async () => {
     try {
       await AsyncStorage.clear();
-    } catch (e) {
-      // clear error
-    }
+    } catch (e) {}
 
     console.log("Done.");
   };
@@ -107,14 +101,8 @@ class Login extends Component {
       <ScrollView style={[styles.container]}>
         <View style={{ height: height }}>
           <View style={{ flex: 0.9 }}>
-            <View style={{ zIndex: 1 }}>
-              <View style={[styles.item, { zIndex: data.length }]}>
-                <LinearGradient
-                  style={StyleSheet.absoluteFill}
-                  colors={["#B0DAFF", "#B0DAFF", "#B0DAFF"]}
-                />
-              </View>
-            </View>
+            <View style={styles.topStyle}></View>
+
             <View style={styles.upperText}>
               <AppText
                 style={{ fontFamily: "Poppins_600SemiBold", fontSize: 40 }}
@@ -196,6 +184,7 @@ class Login extends Component {
   }
 }
 
+//mapState
 const mapStateToProps = (state) => {
   return {
     users: state.user.users,
@@ -209,6 +198,7 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
+//Stylesheet
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -224,6 +214,11 @@ const styles = StyleSheet.create({
   upperText: {
     marginTop: 20,
     marginHorizontal: 15,
+  },
+  topStyle: {
+    backgroundColor: "#B0DAFF",
+    height: 150,
+    borderBottomLeftRadius: 200,
   },
   middleText: {
     marginTop: 40,
